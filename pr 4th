@@ -1,0 +1,39 @@
+# Program 4: Measures of Central Tendency and Dispersion
+# For a Frequency Distribution using NumPy
+
+import numpy as np
+
+# x = class values / data values
+# f = corresponding frequencies
+x = np.array([10, 20, 30, 40, 50], float)
+f = np.array([2, 3, 5, 4, 1], float)
+
+# Total frequency
+N = f.sum()
+
+# ---- Mean ----
+# Formula: mean = Σ(x*f) / N
+mean = (x * f).sum() / N
+
+# ---- Cumulative Frequency ----
+cf = np.cumsum(f)
+
+# ---- Median ----
+# Median position = (N + 1) / 2
+median_pos = (N + 1) / 2
+# Find the first index where CF is >= median position
+median = x[np.where(cf >= median_pos)][0]
+
+# ---- Mode ----
+# Value with highest frequency
+mode = x[np.argmax(f)]
+
+# ---- Variance ----
+# Formula: variance = Σ[f * (x - mean)^2] / N
+var = (f * ((x - mean) ** 2)).sum() / N
+
+# ---- Standard Deviation ----
+sd = np.sqrt(var)
+
+# ---- Print Results ----
+print("Mean:", mean, "Median:", median, "Mode:", mode, "SD:", sd)
