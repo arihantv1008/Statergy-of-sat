@@ -1,0 +1,21 @@
+import re
+
+data = [
+    "John Doe, Age:25, Email: john.doe@example.com",
+    "Jane Smith, Age:30, Email: jane_smith@company.org",
+    "Bob, Age:22, Email: bob22@domain.co.in"
+]
+
+print("=== RAW DATA ===")
+for d in data:
+    print(d)
+
+print("\n=== CLEANED DATA ===")
+for record in data:
+    record = record.strip().lower()
+
+    name = re.search(r'[a-z]+\s*[a-z]*', record).group().title()
+    age = re.search(r'age\s*[:\-]?\s*(\d+)', record).group(1)
+    email = re.search(r'[\w\.-]+@[\w\.-]+', record).group()
+
+    print(f"Name: {name}, Age: {age}, Email: {email}")
