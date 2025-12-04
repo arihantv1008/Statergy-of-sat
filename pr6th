@@ -1,0 +1,49 @@
+# Program 6: Display Normal, Binomial, Poisson, Bernoulli Distributions
+# for a given frequency distribution and analyze the results.
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm, binom, poisson, bernoulli
+
+# Given data
+data = [2, 3, 3, 4, 5, 5, 6, 6]
+
+# ---- Mean & Variance ----
+mean = np.mean(data)
+var = np.var(data)
+
+# Parameters for distributions
+n = len(data)     # sample size for binomial
+p = 0.5           # probability for binomial & bernoulli
+lam = mean        # Poisson λ = mean
+
+print("Mean =", mean)
+print("Variance =", var)
+
+# ---- Normal Distribution ----
+x = np.linspace(min(data), max(data), 100)
+plt.subplot(2, 2, 1)
+plt.plot(x, norm.pdf(x, mean, np.sqrt(var)), color='r')
+plt.title("Normal Distribution")
+
+# ---- Binomial Distribution ----
+x = np.arange(0, n + 1)
+plt.subplot(2, 2, 2)
+plt.bar(x, binom.pmf(x, n, p), color='b')
+plt.title("Binomial Distribution")
+
+# ---- Poisson Distribution ----
+x = np.arange(0, max(data) + 3)
+plt.subplot(2, 2, 3)
+plt.bar(x, poisson.pmf(x, lam), color='g')
+plt.title("Poisson Distribution")
+
+# ---- Bernoulli Distribution ----
+x = [0, 1]
+plt.subplot(2, 2, 4)
+plt.bar(x, bernoulli.pmf(x, p), color='orange')
+plt.title("Bernoulli Distribution")
+
+# Adjust layout & show graphs
+plt.tight_layout()
+plt.show()
