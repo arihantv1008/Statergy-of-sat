@@ -1,0 +1,44 @@
+import numpy as np
+from scipy import stats
+
+sample1 = np.array([12, 15, 14, 10, 13, 12, 14], dtype=float)
+sample2 = np.array([10, 9, 12, 8, 9, 11, 10], dtype=float)
+paired_before = np.array([20, 22, 19, 24, 18], dtype=float)
+paired_after  = np.array([21, 20, 20, 23, 19], dtype=float)
+
+mu0 = 12
+t1, p1 = stats.ttest_1samp(sample1, mu0)
+
+print("=== One-Sample t-Test ===")
+print("Sample mean =", np.mean(sample1))
+print(f"t = {t1:.3f}, p = {p1:.4f}")
+
+if p1 < 0.05:
+    print("=> Significant difference from hypothesized mean")
+else:
+    print("=> No significant difference from hypothesized mean")
+
+t2, p2 = stats.ttest_ind(sample1, sample2, equal_var=False)
+
+print("\n=== Two-Sample t-Test ===")
+print("Mean of sample1 =", np.mean(sample1))
+print("Mean of sample2 =", np.mean(sample2))
+print(f"t = {t2:.3f}, p = {p2:.4f}")
+
+if p2 < 0.05:
+    print("=> The two samples are significantly different")
+else:
+    print("=> No significant difference between the two samples")
+
+t3, p3 = stats.ttest_rel(paired_before, paired_after)
+
+print("\n=== Paired-Sample t-Test ===")
+print("Mean before =", np.mean(paired_before))
+print("Mean after  =", np.mean(paired_after))
+print(f"t = {t3:.3f}, p = {p3:.4f}")
+
+if p3 < 0.05:
+    print("=> Significant change between before and after")
+else:
+    print("=> No significant change between before and after")
+ v
